@@ -1,16 +1,16 @@
 from django.shortcuts import render
-from recipes.models import Recipes
+from recipes.models import Recipe
 
 # Create your views here.
 def recipe_index(request):
-    recipes = Recipes.objects.all()
+    recipes = Recipe.objects.all()
     context = {
         'recipes': recipes
     }
     return render(request, 'recipe_index.html', context)
 
 def recipe_detail(request, pk):
-    recipe = Recipes.objects.get(pk=pk)
+    recipe = Recipe.objects.get(pk=pk)
     context = {
         'recipe': recipe
     }
