@@ -41,7 +41,7 @@ class Metadata(models.Model):
     # Data accuracy depends on scraping.
     tags = TaggableManager()
     add_date = models.DateTimeField(auto_now_add=True)
-    pub_date = models.DateTimeField(auto_now=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
     notes = models.CharField(max_length=1000)
 
 
