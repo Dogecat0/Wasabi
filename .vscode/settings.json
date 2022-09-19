@@ -1,18 +1,27 @@
 {
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true,
-    "python.linting.ignorePatterns": [
-      "**/site-packages/**/*.py",
-      ".vscode/*.py",
-      "**/settings.py",
-      "**/migrations/*.py"
-    ],
-    "python.formatting.provider": "black",
-    "[python]": {
-        "editor.codeActionsOnSave": {
-          "source.organizeImports": true
-        },
-        "editor.formatOnSave": true
-      }
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "python.linting.ignorePatterns": [
+    "**/site-packages/**/*.py",
+    ".vscode/*.py",
+    "**/settings.py",
+    "**/migrations/*.py"
+  ],
+  "python.formatting.provider": "black",
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "editor.formatOnSave": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/venv": true
+  }
 }
