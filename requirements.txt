@@ -2,3 +2,6 @@ Django
 django-location-field
 django-taggit
 python-dotenv
+recipe-scrapers
+beautifulsoup4
+validators
