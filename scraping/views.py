@@ -1,8 +1,15 @@
+from urllib.parse import urljoin
+
+import requests
+import validators
+from bs4 import BeautifulSoup
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from recipe_scrapers import SCRAPERS, scrape_me
 
 # Create your views here
 from .forms import ScrapeForm
+from .models import Scraped
 
 
 def index(request):
@@ -21,8 +28,28 @@ def index(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ScrapeForm()
-    return render(request, "index.html", {"form": form})
+    return render(request, "scraping.html", {"form": form})
 
 
 def scrape(info):
-    return info
+    links = [info["link"]]
+    if info["recursive"]:
+        links = extract_links(info["link"])
+    scraped = [(link, scrape_me(link, wild_mode=info["wild_mode"])) for link in links]
+    for link, item in scraped:
+        Scraped(link=link, content=item.page_data)
+    return
+
+
+def extract_links(link: str):
+
+    reqs = requests.get(link)
+    soup = BeautifulSoup(reqs.text, "html.parser")
+
+    links = []
+    for url in soup.find_all("a", recursive=True):
+        url: str = url.get("href")
+        if not url.startswith(link) and not validators.url(link):
+            url = urljoin(link, url)
+        links.append(url)
+    return links
