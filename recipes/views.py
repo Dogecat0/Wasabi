@@ -7,7 +7,7 @@ from recipes.models import Recipe
 def index(request):
     recipes = Recipe.objects.all()
     context = {"recipes": recipes}
-    return render(request, "index.html", context)
+    return render(request, "recipes.html", context)
 
 
 def detail(request, pk):
