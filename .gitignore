@@ -130,3 +130,6 @@ dmypy.json
 
 # Testing folder
 testing/
+
+# Mac specific
+.DS_Store
