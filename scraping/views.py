@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from recipe_scrapers import SCRAPERS, scrape_me
+from recipes.models import Recipe
 
 # Create your views here
 from .forms import ScrapeForm
@@ -37,8 +38,11 @@ def scrape(info):
         links = extract_links(info["link"])
     scraped = [(link, scrape_me(link, wild_mode=info["wild_mode"])) for link in links]
     for link, item in scraped:
-        Scraped(link=link, content=item.page_data)
+        Scraped(link=link, content=item.page_data).save()
     return
+
+
+# Extract all links from a given url page
 
 
 def extract_links(link: str):
