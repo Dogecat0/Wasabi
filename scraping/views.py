@@ -9,7 +9,7 @@ from recipe_scrapers import SCRAPERS, scrape_me
 from recipes.models import Recipe
 
 # Create your views here
-from .forms import ScrapeForm
+from .forms import DefaultLinksForm, ScrapeForm
 from .models import Scraped
 
 
@@ -57,3 +57,26 @@ def extract_links(link: str):
             url = urljoin(link, url)
         links.append(url)
     return links
+
+
+def default_links(request):
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = DefaultLinksForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            get_default_links(form.cleaned_data)
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect("/scraping/")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = DefaultLinksForm()
+    return render(request, "default_links.html", {"form": form})
+
+
+def get_default_links(scrapers):
+    links = scrapers["links"]

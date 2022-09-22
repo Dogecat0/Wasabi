@@ -9,3 +9,7 @@ class ScrapeForm(forms.Form):
     wild_mode = forms.CharField(
         label="Wild mode", required=False, widget=forms.CheckboxInput
     )
+
+
+class DefaultLinksForm(forms.Form):
+    links = forms.ChoiceField(label="Default Links", required=False)
