@@ -12,4 +12,6 @@ class ScrapeForm(forms.Form):
 
 
 class DefaultLinksForm(forms.Form):
-    links = forms.ChoiceField(label="Default Links", required=False)
+    links = forms.ChoiceField(
+        label="Default Links", required=False, help_text="Select a default link"
+    )
