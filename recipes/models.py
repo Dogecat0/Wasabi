@@ -1,13 +1,21 @@
+import uuid
+from email.policy import default
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.urls import reverse  # Used to generate URLs by reversing the URL patterns.
 from taggit.managers import TaggableManager
 
 
 class Quantity(models.Model):
-    GRAMS = "grams"
-    MILLILITRES = "millilitres"
-    unit = ((GRAMS, "g"), (MILLILITRES, "ml"))
+    UNIT = (("g", "grams"), ("ml", "millilitres"))
     # Upto 50kg
+    unit = models.CharField(
+        max_length=2,
+        choices=UNIT,
+        blank=False,
+        help_text="Choose a unit (grams or millilitres)",
+    )
     portion = models.DecimalField(
         default=0, blank=False, max_digits=50000 + 2, decimal_places=2
     )
@@ -25,13 +33,13 @@ class Time(models.Model):
 
 class Cooking(models.Model):
     ingredients = models.JSONField(
-        verbose_name="Ingredients of this recipe when available"
+        help_text="Ingredients of this recipe when available"
     )
     difficulty = models.PositiveSmallIntegerField(
         validators=[MaxValueValidator(100), MinValueValidator(0)], default=0
     )
     instructions = models.TextField(
-        verbose_name="Instructions of this recipe when available"
+        help_text="Instructions of this recipe when available"
     )  # How to cook in each step
     time = Time()
 
@@ -60,10 +68,16 @@ class Nutrition(models.Model):
     salt = Quantity()
 
 
-# Create your models here.
 class Recipe(models.Model):
+    """Model representing a recipe."""
+
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        help_text="Unique ID for this particular recipe across whole database",
+    )
     title = models.CharField(max_length=50)
-    author = models.CharField(max_length=50)
+    author = models.CharField(max_length=50, blank=True)
     # It might be a list of images too
     # image = models.Field(path="/img", blank=True)
     short_description = models.CharField(max_length=10000, blank=True)
@@ -77,3 +91,14 @@ class Recipe(models.Model):
     cooking = Cooking()
     nutrition = Nutrition()
     meta = Metadata()
+
+    # Define the default ordering of records when querying model type.
+    class Meta:
+        ordering = ["title", "rating"]
+
+    def __str__(self):
+        """String for representing the Recipe object (in Admin site)."""
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse("detail", args=[str(self.id)])
