@@ -1,6 +1,7 @@
 Django
 django-location-field
 django-taggit
+django-measurement
 python-dotenv
 recipe-scrapers
 beautifulsoup4
