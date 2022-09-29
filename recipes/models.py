@@ -1,9 +1,10 @@
 import uuid
-from email.policy import default
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns.
+from django_measurement.models import MeasurementField
+from measurement.measures import Energy, Mass, Volume
 from taggit.managers import TaggableManager
 
 
@@ -56,16 +57,26 @@ class Metadata(models.Model):
 # TODO: Make 'scaping' app with Website(Link, Date) -> Response
 # Plus Recipe-Scraper data mapping (this includes comments)
 
-# FIXME: Find better representation for below:
+
 class Nutrition(models.Model):
-    kcal = models.PositiveIntegerField(default=0, blank=False)
-    fat = Quantity()
-    saturates = Quantity()
-    carbohydrates = Quantity()
-    sugars = Quantity()
-    fibre = Quantity()
-    protein = Quantity()
-    salt = Quantity()
+    recipe_name = models.CharField(
+        max_length=50, help_text="The name of the related recipe"
+    )
+    # FIXME: May need further update for 'kcal'
+    # kcal = models.PositiveSmallIntegerField(default=0, blank=False)
+    # fat = MeasurementField(measurement_class="Mass", unit_choices=(("g", "g")))
+    # saturates = MeasurementField(measurement_class="Mass", unit_choices=(("g", "g")))
+    # carbohydrates = MeasurementField(
+    #     measurement_class="Mass", unit_choices=(("g", "g"))
+    # )
+    # sugars = MeasurementField(measurement_class="Mass", unit_choices=(("g", "g")))
+    # fibre = MeasurementField(measurement_class="Mass", unit_choices=(("g", "g")))
+    # protein = MeasurementField(measurement_class="Mass", unit_choices=(("g", "g")))
+    # salt = MeasurementField(measurement_class="Mass", unit_choices=(("g", "g")))
+
+    def __str___(self):
+        "String for representing the Nutrition object"
+        return self.recipe_name
 
 
 class Recipe(models.Model):
@@ -89,7 +100,8 @@ class Recipe(models.Model):
     )
     serving = Serving()
     cooking = Cooking()
-    nutrition = Nutrition()
+    # OnetoOneField used because one recipe only have one certain set of nutrition informations and vince versa.
+    nutrition = models.ForeignKey(Nutrition, on_delete=models.SET_NULL, null=True)
     meta = Metadata()
 
     # Define the default ordering of records when querying model type.
