@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns.
 from django_measurement.models import MeasurementField
-from measurement.measures import Energy, Mass, Volume
+from measurement.measures import Mass
 from taggit.managers import TaggableManager
 
 
@@ -30,10 +30,14 @@ class Cooking(models.Model):
 class Metadata(models.Model):
     # This includes dietary restrictions and cuisine types.
     # Data accuracy depends on scraping.
-    tags = TaggableManager(help_text="Tags for dietary restrictions and cuisine types.")
+    tags = TaggableManager(
+        blank=True, help_text="Tags for dietary restrictions and cuisine types."
+    )
     add_date = models.DateTimeField(auto_now_add=True)
     pub_date = models.DateTimeField(auto_now_add=True)
-    notes = models.CharField(max_length=1000, help_text="Extra notes about the recipe.")
+    notes = models.CharField(
+        blank=True, max_length=1000, help_text="Extra notes about the recipe."
+    )
 
 
 # TODO: Make 'scaping' app with Website(Link, Date) -> Response
@@ -71,12 +75,12 @@ class Recipe(models.Model):
         validators=[MaxValueValidator(100), MinValueValidator(0)], default=0
     )
     serves = models.PositiveSmallIntegerField(default=1)
-    cooking = models.OneToOneField(Cooking, on_delete=models.SET_NULL, null=True)
-    time = models.ForeignKey(Time, on_delete=models.SET_NULL, null=True)
-    # ForeignKey used because one recipe only have one certain set of nutrition informations,
-    # but one set of nutrition informations could match more than one recipes.
-    nutrition = models.ForeignKey(Nutrition, on_delete=models.SET_NULL, null=True)
-    meta = models.OneToOneField(Metadata, on_delete=models.SET_NULL, null=True)
+    cooking = models.OneToOneField(Cooking, on_delete=models.CASCADE, null=True)
+    # ForeignKey used because one recipe only have one certain set of time informations,
+    # but one set of time informations could match more than one recipes.
+    time = models.ForeignKey(Time, on_delete=models.CASCADE, null=True)
+    nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE, null=True)
+    meta = models.OneToOneField(Metadata, on_delete=models.CASCADE, null=True)
 
     # Define the default ordering of records when querying model type.
     class Meta:
