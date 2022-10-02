@@ -8,7 +8,7 @@ from measurement.measures import Mass
 from taggit.managers import TaggableManager
 
 
-# For Time, Cooking, Metadata and Nutrition, need to check again about 'recipe_name' and return self.recipe_name is the best way to representing objects.
+# For Time, Cooking, Metadata, Nutrition and Tags, need to check again about 'recipe_name' and return self.recipe_name is the best way to representing objects.
 class Time(models.Model):
     preparation = models.DurationField(help_text="Preparation time in HH:MM:SS format.")
     cooking = models.DurationField(help_text="Cooking time in HH:MM:SS format.")
@@ -27,19 +27,6 @@ class Cooking(models.Model):
     )
 
 
-class Metadata(models.Model):
-    # This includes dietary restrictions and cuisine types.
-    # Data accuracy depends on scraping.
-    tags = TaggableManager(
-        blank=True, help_text="Tags for dietary restrictions and cuisine types."
-    )
-    add_date = models.DateTimeField(auto_now_add=True)
-    pub_date = models.DateTimeField(auto_now_add=True)
-    notes = models.CharField(
-        blank=True, max_length=1000, help_text="Extra notes about the recipe."
-    )
-
-
 # TODO: Make 'scaping' app with Website(Link, Date) -> Response
 # Plus Recipe-Scraper data mapping (this includes comments)
 
@@ -53,6 +40,12 @@ class Nutrition(models.Model):
     fibre = MeasurementField(measurement=Mass)
     protein = MeasurementField(measurement=Mass)
     salt = MeasurementField(measurement=Mass)
+
+
+class Tags(models.Model):
+    dietary_and_cuisine = TaggableManager(
+        blank=True, help_text="Tags for dietary restrictions and cuisine types."
+    )
 
 
 class Recipe(models.Model):
@@ -80,7 +73,9 @@ class Recipe(models.Model):
     # but one set of time informations could match more than one recipes.
     time = models.ForeignKey(Time, on_delete=models.CASCADE, null=True)
     nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE, null=True)
-    meta = models.OneToOneField(Metadata, on_delete=models.CASCADE, null=True)
+    tags = models.ForeignKey(Tags, on_delete=models.CASCADE, null=True)
+    add_date = models.DateTimeField(auto_now_add=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
 
     # Define the default ordering of records when querying model type.
     class Meta:
