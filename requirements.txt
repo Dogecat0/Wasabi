@@ -2,6 +2,7 @@ Django
 django-location-field
 django-taggit
 django-measurement
+psycopg2-binary
 python-dotenv
 recipe-scrapers
 beautifulsoup4
