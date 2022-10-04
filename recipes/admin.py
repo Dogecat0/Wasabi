@@ -52,6 +52,16 @@ class RecipeAdmin(admin.ModelAdmin):
         time: Time = obj.time
         return time.cooking
 
+    # Add list filter
+    # TODO: Update the display of tags from tags object to actual values.
+    list_filter = (
+        "rating",
+        "tags",
+        "time__cooking",
+        "time__preparation",
+        "cooking__difficulty",
+    )
+
 
 admin.site.register(Nutrition)
 admin.site.register(Cooking)
