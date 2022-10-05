@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Cooking, Nutrition, Recipe, Tags, Time
+from .models import Cooking, CuisineTags, DietaryTags, Nutrition, Recipe, Time
 
 # Register your models here.
 
@@ -13,21 +13,33 @@ class RecipeAdmin(admin.ModelAdmin):
         "name",
         "author",
         "rating",
-        "get_tags",
+        "get_dietary_tags",
+        "get_cuisine_tags",
         "get_difficulty",
         "get_preparation_time",
         "get_cooking_time",
     )
 
     def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related("tags", "cooking", "time")
+        return (
+            super()
+            .get_queryset(request)
+            .prefetch_related("dietary_tags", "cuisine_tags", "cooking", "time")
+        )
 
-    # Display tags
+    # Display dietary tags
     @admin.display(
-        description="dietary restrictions and cuisine types",
+        description="dietary restrictions",
     )
-    def get_tags(self, obj):
-        return ", ".join(o.name for o in obj.tags.dietary_and_cuisine.all())
+    def get_dietary_tags(self, obj):
+        return ", ".join(o.name for o in obj.dietary_tags.dietary.all())
+
+    # Display cuisine tags
+    @admin.display(
+        description="cuisine types",
+    )
+    def get_cuisine_tags(self, obj):
+        return ", ".join(o.name for o in obj.cuisine_tags.cuisine.all())
 
     # Display cooking.difficulty
     @admin.display(
@@ -56,7 +68,8 @@ class RecipeAdmin(admin.ModelAdmin):
     # TODO: Update the display of tags from tags object to actual values.
     list_filter = (
         "rating",
-        "tags",
+        "dietary_tags",
+        "cuisine_tags",
         "time__cooking",
         "time__preparation",
         "cooking__difficulty",
@@ -66,4 +79,5 @@ class RecipeAdmin(admin.ModelAdmin):
 admin.site.register(Nutrition)
 admin.site.register(Cooking)
 admin.site.register(Time)
-admin.site.register(Tags)
+admin.site.register(DietaryTags)
+admin.site.register(CuisineTags)

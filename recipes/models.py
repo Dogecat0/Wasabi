@@ -42,10 +42,12 @@ class Nutrition(models.Model):
     salt = MeasurementField(measurement=Mass)
 
 
-class Tags(models.Model):
-    dietary_and_cuisine = TaggableManager(
-        blank=True, help_text="Tags for dietary restrictions and cuisine types."
-    )
+class DietaryTags(models.Model):
+    dietary = TaggableManager(blank=True, help_text="Tags for dietary restrictions.")
+
+
+class CuisineTags(models.Model):
+    cuisine = TaggableManager(blank=True, help_text="Tags for cuisine types.")
 
 
 class Recipe(models.Model):
@@ -73,7 +75,8 @@ class Recipe(models.Model):
     # but one set of time informations could match more than one recipes.
     time = models.ForeignKey(Time, on_delete=models.CASCADE, null=True)
     nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE, null=True)
-    tags = models.ForeignKey(Tags, on_delete=models.CASCADE, null=True)
+    dietary_tags = models.ForeignKey(DietaryTags, on_delete=models.CASCADE, null=True)
+    cuisine_tags = models.ForeignKey(CuisineTags, on_delete=models.CASCADE, null=True)
     add_date = models.DateTimeField(auto_now_add=True)
     pub_date = models.DateTimeField(auto_now_add=True)
 
