@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+<!-- Add additional CSS in static file -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+{% load static %}
+<img src="{% static 'recipes/images/air_fryer_salmon.png' %}" alt="UML diagram" style="width:555px;height:540px;" />
+<img src="{% static 'recipes/images/beef_guinness_stew.png' %}" alt="UML diagram" style="width:555px;height:540px;" />
+
+{% block content %}
+  <h1>Wasabi</h1>
+  <p>Welcome to Wasabi, a recipe search engine developed by <em>Zhicheng Wang</em>!</p>
+  <h2>Dynamic content</h2>
+  <p>Wasabi has so far the following record counts:</p>
+  <ul>
+    <li><strong>Recipes:</strong> {{ num_recipes }}</li>
+    <li><strong>Cuisines:</strong> {{ num_cuisines }}</li>
+    <li><strong>Dietary Choices:</strong> {{ num_dietary_restrictions }}</li>
+  </ul>
+{% endblock %}
