@@ -1,6 +1,3 @@
-from multiprocessing import context
-
-import genericpath
 from django.shortcuts import render
 from django.views import generic
 
