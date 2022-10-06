@@ -29,9 +29,14 @@ class RecipeListView(generic.ListView):
         return context
 
     def get_queryset(self):
+        # Get the first 5 recipes from the database.
         return Recipe.objects.all()[:5]
 
     template_name = "recipes/recipe_list.html"
+
+
+class RecipeDetailView(generic.DetailView):
+    model = Recipe
 
 
 # def detail(request, pk):

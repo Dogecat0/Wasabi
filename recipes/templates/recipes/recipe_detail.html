@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+<!-- For the model Recipe in application recipes -->
+
+{% block content %}
+    <h1>Name: {{ recipe.name }}</h1>
+
+    <p><strong>Author:</strong> {{ recipe.author }}</p>
+    <p><strong>Description:</strong> {{ recipe.short_description }}</p>
+    <p><strong>Rating:</strong> {{ recipe.rating }}</p>
+    <p><strong>Difficulty:</strong> {{ recipe.cooking.difficulty }}</p>
+    <p><strong>Cuisine:</strong> {{ recipe.cuisine_tags.cuisine }}</p>
+    <p><strong>Dietary:</strong> {{ recipe.dietary_tags.dietary }}</p>
+    <p><strong>Preparation-Time:</strong> {{ recipe.time.preparation }}</p>
+    <p><strong>Cooking-Time:</strong> {{ recipe.time.cooking }}</p>
+    <p><strong>Nutritions:</strong> {{ recipe.nutrition.all }}</p>
+    <p><strong>Ingredients:</strong> {{ recipe.cooking.ingredients }}</p>
+    <p><strong>Instructions:</strong> {{ recipe.cooking.instructions }}</p>
+
+{% endblock %}
+        
