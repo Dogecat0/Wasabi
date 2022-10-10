@@ -24,8 +24,6 @@ class RecipeListView(generic.ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
         context = super(RecipeListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context
-        context["some_data"] = "This is just some random data"
         return context
 
     def get_queryset(self):
@@ -37,6 +35,7 @@ class RecipeListView(generic.ListView):
 
 class RecipeDetailView(generic.DetailView):
     model = Recipe
+    template_name = "recipes/recipe_detail.html"
 
 
 # def detail(request, pk):

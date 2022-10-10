@@ -9,8 +9,18 @@
     <p><strong>Description:</strong> {{ recipe.short_description }}</p>
     <p><strong>Rating:</strong> {{ recipe.rating }}</p>
     <p><strong>Difficulty:</strong> {{ recipe.cooking.difficulty }}</p>
-    <p><strong>Cuisine:</strong> {{ recipe.cuisine_tags.cuisine }}</p>
-    <p><strong>Dietary:</strong> {{ recipe.dietary_tags.dietary }}</p>
+    <p><strong>Cuisine:</strong></p>
+    <ul>
+    {% for t in recipe.cuisine_tags.cuisine.names.all  %}
+        <li>{{ t }}</li>
+    {% endfor %}
+    </ul>
+    <p><strong>Dietary:</strong></p>
+    <ul>
+    {% for t in recipe.dietary_tags.dietary.names.all %}
+        <li>{{ t }}</li>
+    {% endfor %}
+    </ul>
     <p><strong>Preparation-Time:</strong> {{ recipe.time.preparation }}</p>
     <p><strong>Cooking-Time:</strong> {{ recipe.time.cooking }}</p>
     <p><strong>Nutritions:</strong> {{ recipe.nutrition.all }}</p>

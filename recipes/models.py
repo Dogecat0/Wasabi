@@ -89,4 +89,4 @@ class Recipe(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("detail", args=[str(self.id)])
+        return reverse("recipe", args=[str(self.id)])
