@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from os import environ
 from pathlib import Path
 
@@ -62,7 +63,7 @@ ROOT_URLCONF = "wasabi_server.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["wasabi_server/templates/"],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -157,3 +158,6 @@ LOCATION_FIELD = {
         "js": (LOCATION_FIELD_PATH + "/js/form.js",),
     },
 }
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = "/"
