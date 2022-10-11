@@ -23,7 +23,17 @@
     </ul>
     <p><strong>Preparation-Time:</strong> {{ recipe.time.preparation }}</p>
     <p><strong>Cooking-Time:</strong> {{ recipe.time.cooking }}</p>
-    <p><strong>Nutritions:</strong> {{ recipe.nutrition.all }}</p>
+    <p><strong>Nutritions:</strong></p>
+    <ul>
+        <li>kcal: {{ recipe.nutrition.kcal }}</li>
+        <li>fat: {{ recipe.nutrition.fat }}</li>
+        <li>saturates: {{ recipe.nutrition.saturates }}</li>
+        <li>carbs: {{ recipe.nutrition.carbonhydrates }}</li>
+        <li>sugars: {{ recipe.nutrition.sugars }}</li>
+        <li>fibre: {{ recipe.nutrition.fibre }}</li>
+        <li>protein: {{ recipe.nutrition.protein }}</li>
+        <li>salt: {{ recipe.nutrition.salt }}</li>
+    </ul>
     <p><strong>Ingredients:</strong> {{ recipe.cooking.ingredients }}</p>
     <p><strong>Instructions:</strong> {{ recipe.cooking.instructions }}</p>
 
