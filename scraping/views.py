@@ -70,7 +70,7 @@ def default_links(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect("/scraping/")
+            return HttpResponseRedirect("/default_links/")
 
     # if a GET (or any other method) we'll create a blank form
     else:
