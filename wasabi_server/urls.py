@@ -20,6 +20,7 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 
 urlpatterns = [
+    # Recipes urls
     path("admin/", admin.site.urls),
     path(
         "recipes/", include("recipes.urls")
@@ -28,6 +29,8 @@ urlpatterns = [
         "", RedirectView.as_view(url="recipes/")
     ),  # Add URL maps to redirect the base URL to recipes application
     path("accounts/", include("django.contrib.auth.urls")),
+    # Scraping urls
+    path("scraping/", include("scraping.urls")),
 ] + static(
     settings.STATIC_URL, document_root=settings.STATIC_ROOT
 )  # Use static() to add URL mapping to serve static files during development (only)
