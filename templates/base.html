@@ -17,7 +17,7 @@
     {% block topnav %}
     <nav>
       &nbsp;&nbsp;<a href="{% url 'index' %}">Home</a>
-      &nbsp;&nbsp;<a href="{% url 'all-recipes' %}">All Recipes</a>
+      &nbsp;&nbsp;<a href="{% url 'all_recipes' %}">All Recipes</a>
       &nbsp;&nbsp;<a href="{% url 'scraping' %}">Recipe Scraping</a>
       &nbsp;&nbsp;<a href="">Recommendation Engine</a>
       {% if user.is_authenticated %}

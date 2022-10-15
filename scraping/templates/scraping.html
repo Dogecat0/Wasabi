@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
     <br>
-    <h3>Recipe Scraping</h3>
-    <br>
     <form action="/scraping/" method="post">
         {% csrf_token %}
         {{ form }}
