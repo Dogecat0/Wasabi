@@ -31,28 +31,28 @@ class RecipeAdmin(admin.ModelAdmin):
     @admin.display(
         description="dietary restrictions",
     )
-    def get_dietary_tags(self, obj):
+    def get_dietary_tags(self, obj: Recipe):
         return ", ".join(o.name for o in obj.dietary_tags.dietary.all())
 
     # Display cuisine tags
     @admin.display(
         description="cuisine types",
     )
-    def get_cuisine_tags(self, obj):
+    def get_cuisine_tags(self, obj: Recipe):
         return ", ".join(o.name for o in obj.cuisine_tags.cuisine.all())
 
     # Display cooking.difficulty
     @admin.display(
         description="cooking difficulty (0-100)",
     )
-    def get_difficulty(self, obj):
+    def get_difficulty(self, obj: Recipe):
         return obj.cooking.difficulty
 
     # Display preparation time
     @admin.display(
         description="preparation time",
     )
-    def get_preparation_time(self, obj):
+    def get_preparation_time(self, obj: Recipe):
         time: Time = obj.time
         return time.preparation
 
@@ -60,7 +60,7 @@ class RecipeAdmin(admin.ModelAdmin):
     @admin.display(
         description="cooking time",
     )
-    def get_cooking_time(self, obj):
+    def get_cooking_time(self, obj: Recipe):
         time: Time = obj.time
         return time.cooking
 
