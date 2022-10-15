@@ -30,12 +30,12 @@ class RecipeListView(generic.ListView):
         # Get the first 5 recipes from the database.
         return Recipe.objects.all()[:5]
 
-    template_name = "recipes/recipe_list.html"
+    template_name = "recipes/list.html"
 
 
 class RecipeDetailView(generic.DetailView):
     model = Recipe
-    template_name = "recipes/recipe_detail.html"
+    template_name = "recipes/detail.html"
 
 
 # def detail(request, pk):
