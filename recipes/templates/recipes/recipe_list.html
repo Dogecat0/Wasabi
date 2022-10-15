@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Recipe List</h1>
+  <br>
+  <h3>Recipe List</h3>
   {% if recipe_list %}
   <ul>
     {% for recipe in recipe_list %}
       <li>
-        <a href="{{recipe.get_absolute_url}}">{{ recipe.name }}</a> 
-        (<strong>Author:</strong> {{recipe.author}})
-        (<strong>Rating:</strong> {{recipe.rating}})
-        (<strong>Difficulty:</strong> {{ recipe.cooking.difficulty }})
-        <p><strong>Description:</strong> {{ recipe.short_description }}</p> 
+        <a title="Click to see details" href="{{recipe.get_absolute_url}}"><strong>{{ recipe.name }}</strong></a> 
+        ({{recipe.author}})
+        <ul>
+          <li><mark><em>Rating: {{recipe.rating}}</em></mark></li>
+          <li><mark><em>Difficulty: {{ recipe.cooking.difficulty }}</em></mark></li>
+        </ul>
+        <p>Description: {{ recipe.short_description }}</p> 
       </li>
     {% endfor %}
   </ul>
