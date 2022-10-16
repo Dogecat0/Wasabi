@@ -20,14 +20,12 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    # Recipes urls
     path("admin/", admin.site.urls),
+    path("home/", include("home.urls")),
     path(
-        "recipes/", include("recipes.urls")
-    ),  # Use include() to add paths from the recipes application
-    path(
-        "", RedirectView.as_view(url="recipes/")
-    ),  # Add URL maps to redirect the base URL to recipes application
+        "", RedirectView.as_view(url="home/")
+    ),  # Add URL maps to redirect the base URL to home application
+    path("recipes/", include("recipes.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     # Scraping urls
     path("scraping/", include("scraping.urls")),

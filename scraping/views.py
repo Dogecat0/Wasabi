@@ -29,7 +29,7 @@ def index(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ScrapeForm()
-    return render(request, "scraping.html", {"form": form})
+    return render(request, "scraping/scraping.html", {"form": form})
 
 
 def scrape(info):

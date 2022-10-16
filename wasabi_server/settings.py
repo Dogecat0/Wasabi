@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "taggit",
+    "home",
     "recipes",
     "users",
     "scraping",
@@ -130,7 +131,11 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/images/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "recipes/static")]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "recipes/static/"),
+    os.path.join(BASE_DIR, "home/static/"),
+]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
