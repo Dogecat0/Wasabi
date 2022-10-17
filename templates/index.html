@@ -2,9 +2,9 @@
 
 <!-- Add additional CSS in static file -->
 {% load static %}
-<link rel="stylesheet" href="{% static 'recipes/static/css/styles.css' %}"/>
 
 {% block content %}
+  <link rel="stylesheet" href="{% static '/home/css/styles.css' %}"/>
   <br>
   <h3>Recipe Collections</h3>
   <br><br>
@@ -24,7 +24,7 @@
   <p>Wasabi has so far the following record counts:</p>
   <ul>
     <li><strong>Recipes:</strong> {{ num_recipes }}</li>
-    <li><strong>Cuisines:</strong> {{ num_cuisines }}</li>
+    <li class="special"><strong>Cuisines:</strong> {{ num_cuisines }}</li>
     <li><strong>Dietary Choices:</strong> {{ num_dietary_restrictions }}</li>
   </ul>
 {% endblock %}
