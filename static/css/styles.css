@@ -2,6 +2,10 @@ h1 {
     color: rgb(93, 141, 3);
   }
 
-a{
-    color:rgb(0, 0, 0)
+a.nav-link{
+    color:rgb(255, 255, 255)
+}
+
+a.user-authentication{
+  color:rgb(255, 255, 255)
 }
