@@ -1,11 +1,19 @@
 h1 {
+    font-family: system-ui;
     color: rgb(93, 141, 3);
+    font-size: 300%;
   }
 
 a.nav-link{
-    color:rgb(255, 255, 255)
+    font-family: system-ui;
+    color: rgb(255, 255, 255);
+    font-size: 120%;
+    text-decoration: none;
 }
 
 a.user-authentication{
-  color:rgb(255, 255, 255)
+  font-family: system-ui;
+  color: rgb(255, 255, 255);
+  font-size: 120%;
+  text-decoration: none;
 }
