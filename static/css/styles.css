@@ -1,19 +1,37 @@
+body{
+  background-color: white;
+}
 h1 {
     font-family: system-ui;
-    color: rgb(93, 141, 3);
+    color: olivedrab;
     font-size: 300%;
+    text-align: center;
   }
 
-a.nav-link{
-    font-family: system-ui;
-    color: rgb(255, 255, 255);
-    font-size: 120%;
-    text-decoration: none;
+nav.navbar {
+  background-color: olivedrab
 }
 
-a.user-authentication{
-  font-family: system-ui;
-  color: rgb(255, 255, 255);
-  font-size: 120%;
-  text-decoration: none;
+ul.navbar-nav li {
+  display: inline;
+}
+
+a.nav-link {
+  color:white;
+  font-size: 20px;
+ 
+}
+
+
+button#search-bar-btn{
+  color: white;
+  border-color: white;
+}
+
+button#search-bar-btn:hover{
+  background-color: olive;
+}
+
+#content {
+  width: 100%
 }
