@@ -1,12 +1,13 @@
-body{
+body {
   background-color: white;
 }
+
 h1 {
-    font-family: system-ui;
-    color: olivedrab;
-    font-size: 300%;
-    text-align: center;
-  }
+  font-family: system-ui;
+  color: olivedrab;
+  font-size: 300%;
+  text-align: center;
+}
 
 nav.navbar {
   background-color: olivedrab
@@ -17,21 +18,16 @@ ul.navbar-nav li {
 }
 
 a.nav-link {
-  color:white;
+  color: white;
   font-size: 20px;
- 
+
 }
 
-
-button#search-bar-btn{
+button#search-bar-btn {
   color: white;
   border-color: white;
 }
 
-button#search-bar-btn:hover{
+button#search-bar-btn:hover {
   background-color: olive;
-}
-
-#content {
-  width: 100%
 }
