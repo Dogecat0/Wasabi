@@ -1,30 +1,18 @@
 {% extends "base.html" %}
-
-<!-- Add additional CSS in static file -->
 {% load static %}
-
 {% block content %}
-  <link rel="stylesheet" href="{% static '/home/css/styles.css' %}"/>
-  <br>
+<link rel="stylesheet" href="{% static '/home/css/styles.css' %}"/>
+
+<div class="d-flex flex-column justify-content-center align-items-center">
   <h3>Recipe Collections</h3>
-  <br><br>
-  <figure>
-    <img src="{% static 'images/air_fryer_salmon.png' %}" alt="Air fried salmon" style="width:360px;height:320px;" >
-    <figcaption>
-      Air fryer salmon.
-    </figcaption>
-    <br>
-    <img src="{% static 'images/beef_guinness_stew.png' %}" alt="Beef guinness stew" style="width:360px;height:320px;" >
-    <figcaption>
-      Beef guinness stew.
-    </figcaption>
-  </figure>
-  <br><br><br><br>
-  <h3>Dynamic content</h3>
-  <p>Wasabi has so far the following record counts:</p>
+  <img class="img-fluid" src="{% static '/home/images/air_fryer_salmon.png' %}" alt="Air fried salmon" >
+  <br>
+  <img class="img-fluid" src="{% static '/home/images/beef_guinness_stew.png' %}" alt="Beef guinness stew" >
+  <h3>Statistics</h3>
   <ul>
     <li><strong>Recipes:</strong> {{ num_recipes }}</li>
     <li><strong>Cuisines:</strong> {{ num_cuisines }}</li>
     <li><strong>Dietary Choices:</strong> {{ num_dietary_restrictions }}</li>
   </ul>
+</div>
 {% endblock %}
