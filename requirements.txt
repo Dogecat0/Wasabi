@@ -2,8 +2,10 @@ Django
 django-location-field
 django-taggit
 django-measurement
+django-storages
 psycopg2-binary
 python-dotenv
 recipe-scrapers
 beautifulsoup4
 validators
+boto3

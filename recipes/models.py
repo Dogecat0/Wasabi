@@ -58,6 +58,7 @@ class Recipe(models.Model):
         default=uuid.uuid4,
         help_text="Unique ID for this particular recipe across whole database",
     )
+    photo = models.FileField(upload_to="photos", default="photos/missing.png")
     name = models.CharField(max_length=50)
     author = models.CharField(max_length=50, blank=True)
     # It might be a list of images too
