@@ -14,7 +14,7 @@ nav.navbar {
 }
 
 ul.navbar-nav li {
-  display: inline;
+  display: inline-block;
 }
 
 a.nav-link {
