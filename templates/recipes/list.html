@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  <link rel="stylesheet" href="{% static '/recipes/css/styles.css' %}"/>
-  <div class="container-fluid">
+<link rel="stylesheet" href="{% static '/recipes/css/styles.css' %}"/>
+<div class="container-fluid">
+  <div class="input-group mb-4 mt-3">
+    <input type="text" class="form-control" placeholder="Query..." aria-label="Recipe search bar" aria-describedby="search-button">
+    <button class="btn btn-outline-secondary" type="button" id="search-button">Search</button>
+  </div>
+  <div class="row">
     {% for recipe in recipe_list %}
-      <div class="card">
+      <div class="card mb-4 ms-4">
         <img src="{{ recipe.photo.url }}" class="card-img-top" alt="recipe image"/>
         <div class="card-body">
           <h5 class="card-title">{{recipe.name}}</h5>
@@ -14,22 +19,5 @@
       </div>
     {% endfor %}
   </div>
-  {% comment %} <br>
-  {% if recipe_list %}
-  <ul>
-    {% for recipe in recipe_list %}
-      <li>
-        <a title="Click to see details" href="{{recipe.get_absolute_url}}"><strong>{{ recipe.name }}</strong></a> 
-        ({{recipe.author}})
-        <ul>
-          <li><mark><em>Rating: {{recipe.rating}}</em></mark></li>
-          <li><mark><em>Difficulty: {{ recipe.cooking.difficulty }}</em></mark></li>
-        </ul>
-        <p>Description: {{ recipe.short_description }}</p> 
-      </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-    <p>There are no recipes in the database.</p>
-  {% endif %} {% endcomment %}
+</div>
 {% endblock %}
