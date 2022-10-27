@@ -1,0 +1,19 @@
+div.card{
+  width: 25%;
+  min-width: 256px;
+}
+
+div.card img{
+  width: 50%;
+}
+
+h5 {
+  color: olivedrab;
+  padding-top: 2.5%;
+  padding-bottom: 1.5%;
+}
+
+div.card-body a.btn{
+  background-color: olivedrab;
+  border-color: white;
+}

@@ -1,7 +1,20 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-  <br>
+  <link rel="stylesheet" href="{% static '/recipes/css/styles.css' %}"/>
+  <div class="container-fluid">
+    {% for recipe in recipe_list %}
+      <div class="card">
+        <img src="{{ recipe.photo.url }}" class="card-img-top" alt="recipe image"/>
+        <div class="card-body">
+          <h5 class="card-title">{{recipe.name}}</h5>
+          <p class="card-text">Description: {{ recipe.short_description }}</p>
+          <a href="{{recipe.get_absolute_url}}" class="btn btn-primary">Recipe Details</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% comment %} <br>
   {% if recipe_list %}
   <ul>
     {% for recipe in recipe_list %}
@@ -18,5 +31,5 @@
   </ul>
   {% else %}
     <p>There are no recipes in the database.</p>
-  {% endif %}
+  {% endif %} {% endcomment %}
 {% endblock %}
