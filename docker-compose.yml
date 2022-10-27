@@ -21,5 +21,5 @@ services:
       entrypoint: >
         /bin/sh -c "
         until( /usr/bin/mc alias set myminio http://minio:9000 $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD) do echo '...Setting MinIO Credentials...' && sleep 1; done;
-        /usr/bin/mc mb --quiet myminio/$MINIO_BUCKET_NAME;
-        /usr/bin/mc policy set public myminio/$MINIO_BUCKET_NAME;"
+        /usr/bin/mc mb --quiet --ignore-existing myminio/$MINIO_BUCKET_NAME;
+        /usr/bin/mc anonymous set download myminio/$MINIO_BUCKET_NAME;"
