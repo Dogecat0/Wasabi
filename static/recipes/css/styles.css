@@ -1,8 +1,3 @@
-div.card{
-  max-width: calc((100% / 4) - (2rem));
-  /* min-width: calc(100% - 3rem);  */
-}
-
 div.card img{
   width: 100%;
 }
@@ -13,7 +8,7 @@ h5 {
   padding-bottom: 1.5%;
 }
 
-div.card-body a.btn{
+div.card-footer a.btn{
   background-color: olivedrab;
   border-color: white;
 }
