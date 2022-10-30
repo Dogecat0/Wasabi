@@ -2,13 +2,6 @@ body {
   background-color: white;
 }
 
-h1 {
-  font-family: system-ui;
-  color: olivedrab;
-  font-size: 300%;
-  text-align: center;
-}
-
 nav.navbar {
   background-color: olivedrab
 }
