@@ -1,3 +1,13 @@
+button#search-button {
+  color: olivedrab;
+  border-color: olivedrab;
+}
+
+button#search-button:hover {
+  color: white;
+  background-color: olivedrab;
+}
+
 div.card img{
   width: 100%;
 }
