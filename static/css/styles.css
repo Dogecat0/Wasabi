@@ -15,12 +15,3 @@ a.nav-link {
   font-size: 20px;
 
 }
-
-button#search-bar-btn {
-  color: white;
-  border-color: white;
-}
-
-button#search-bar-btn:hover {
-  background-color: olive;
-}
