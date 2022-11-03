@@ -1,4 +1,4 @@
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import requests
 import validators
@@ -43,19 +43,22 @@ def scrape(info):
 
 
 # Extract all links from a given url page
-
-
 def extract_links(link: str):
-
     reqs = requests.get(link)
     soup = BeautifulSoup(reqs.text, "html.parser")
-
-    links = []
-    for url in soup.find_all("a", recursive=True):
-        url: str = url.get("href")
-        if not url.startswith(link) and not validators.url(link):
-            url = urljoin(link, url)
-        links.append(url)
+    domain = urlparse(link)
+    path = domain.path.split("/")
+    path = path[:-1] if path[-1].endswith(".html") else path
+    path = "/".join(path)
+    domain = f"{domain.scheme}://{domain.netloc}{path}"
+    links = set()
+    found_href = soup.find_all(href=True, recursive=True)
+    for url in found_href:
+        url: str = url.get("href", "")
+        if not url.startswith(domain) and not validators.url(url):
+            url = urljoin(domain, url)
+        if url.startswith(domain) and validators.url(url):
+            links.add(url)
     return links
 
 
