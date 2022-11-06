@@ -1,3 +1,5 @@
+import re
+from typing import List
 from urllib.parse import urljoin, urlparse
 
 import requests
@@ -6,11 +8,14 @@ from bs4 import BeautifulSoup
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from recipe_scrapers import SCRAPERS, scrape_me
+
 from recipes.models import Recipe
 
 # Create your views here
 from .forms import DefaultLinksForm, ScrapeForm
 from .models import Scraped
+
+is_fname = re.compile(r"\w+\.\w+")
 
 
 def index(request):
@@ -32,10 +37,41 @@ def index(request):
     return render(request, "scraping/scraping.html", {"form": form})
 
 
+def preprocess_url(link: str, with_path=False, with_fname=False):
+    parsed = urlparse(link)
+    url = f"{parsed.scheme}://{parsed.netloc}"
+    if with_path:
+        path = parsed.path.split("/")
+        if not with_fname:
+            path = path[:-1] if is_fname.match(path[-1]) else path
+        path = "/".join(path)
+        url += path
+    return url
+
+
 def scrape(info):
-    links = [info["link"]]
-    if info["recursive"]:
-        links = extract_links(info["link"])
+    queue = [info["link"]]
+    done = set()
+    links = set()
+
+    while queue:
+        target = queue.pop()
+        target = preprocess_url(target, with_path=True, with_fname=False)
+        if target in done:
+            continue
+        else:
+            done.add(target)
+
+        found: List[str] = extract_links(target)
+        found = [
+            preprocess_url(item, with_path=True, with_fname=True) for item in found
+        ]
+        links.update(found)
+
+        if info["recursive"]:
+            queue.extend(found)
+        print(f"LINKS: {len(links)} QUEUE: {len(queue)}")
+
     scraped = [(link, scrape_me(link, wild_mode=info["wild_mode"])) for link in links]
     for link, item in scraped:
         Scraped(link=link, content=item.page_data).save()
@@ -43,23 +79,22 @@ def scrape(info):
 
 
 # Extract all links from a given url page
-def extract_links(link: str):
-    reqs = requests.get(link)
+def extract_links(target: str) -> set:
+    # Get link (inc query etc.) content
+    reqs = requests.get(target)
+
+    # Parse for hrefs
     soup = BeautifulSoup(reqs.text, "html.parser")
-    domain = urlparse(link)
-    path = domain.path.split("/")
-    path = path[:-1] if path[-1].endswith(".html") else path
-    path = "/".join(path)
-    domain = f"{domain.scheme}://{domain.netloc}{path}"
-    links = set()
     found_href = soup.find_all(href=True, recursive=True)
-    for url in found_href:
-        url: str = url.get("href", "")
-        if not url.startswith(domain) and not validators.url(url):
-            url = urljoin(domain, url)
-        if url.startswith(domain) and validators.url(url):
-            links.add(url)
-    return links
+    found = set()
+    for item in found_href:
+        href: str = item.get("href", "")
+        if not validators.url(href, public=True):
+            href = urljoin(target, href)
+        if not href.startswith(target):
+            continue
+        found.add(href)
+    return found
 
 
 def default_links(request):
